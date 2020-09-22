@@ -92,12 +92,12 @@
     <locationFinder>
         <GCC_DIR>
             <and>
-                <cmdReturns name="which $CC" />
+                <cmdReturns name="which gcc-10" />
                 <dirExists name="$$" />
             </and>
         </GCC_DIR>
         <GCC_VERSION>
-            <cmdReturns name="$CC -dumpversion"/>
+            <cmdReturns name="gcc-10 -dumpversion"/>
         </GCC_VERSION>
     </locationFinder>
 </config>

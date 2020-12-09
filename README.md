@@ -44,7 +44,7 @@ Xcode Clang++  mex -setup:/Applications/MATLAB_R2020b.app/bin/maci64/mexopts/cla
 ```
 Finally, for FORTRAN:
 ```
->> mex -setup Fortran
+>> mex -setup FORTRAN
 MEX configured to use 'gfortran' for FORTRAN language compilation.
 ```
 (Note that if you have `ifort` installed, you may see an option here to select it.)

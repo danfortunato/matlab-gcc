@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config
+    Name="gfortran"
+    ShortName="gfortran"
+    Manufacturer="GNU"
+    Version="$GFORTRAN_VERSION"
+    Language="FORTRAN"
+    Priority="A"
+    Location="$GFORTRAN_DIR" >
+    <Details
+        CompilerExecutable="$FC"
+        CompilerDefines="$FDEFINES"
+        CompilerFlags="$FFLAGS"
+        OptimizationFlags="$FOPTIMFLAGS"
+        DebugFlags="$FDEBUGFLAGS"
+        IncludeFlags="$INCLUDE"
+        LinkerExecutable="$LDF"
+        LinkerFlags="$LDFLAGS"
+        LinkerLibraries="$LINKLIBS"
+        LinkerOptimizationFlags="$LDOPTIMFLAGS"
+        LinkerDebugFlags="$LDDEBUGFLAGS"
+        CompilerDefineFormatter="-D%s"
+        LinkerLibrarySwitchFormatter="-l%s"
+        LinkerPathFormatter="-L%s"
+        />
+    <vars
+        FC="gfortran"
+        CMDLINE1="$FC -c $FDEFINES $INCLUDE $FFLAGS $OPTIM $SRC -o $OBJ"
+        CMDLINE2="$LDF $LDFLAGS $LINKOPTIM $OBJS $FLIBS $LINKLIBS -o $EXE"
+        FDEFINES=""
+        FFLAGS="-m64 -fexceptions -fbackslash -fallow-argument-mismatch -fallow-invalid-boz"
+        INCLUDE="-I&quot;$MATLABROOT/extern/include&quot; -I&quot;$MATLABROOT/simulink/include&quot;"
+        FOPTIMFLAGS="-O"
+        FDEBUGFLAGS="-g"
+        LDF="$FC"
+        LDFLAGS="-Wl,-twolevel_namespace -undefined error $LDBUNDLE $LINKEXPORT"
+        LDBUNDLE="-bundle "
+        LINKEXPORT="-Wl,-exported_symbols_list,&quot;$MATLABROOT/extern/lib/maci64/fexport.map&quot;"
+        LINKLIBS="-L&quot;$MATLABROOT/bin/maci64&quot; -lmx -lmex -lmat -L&quot;$GFORTRAN_LIBDIR&quot; -lgfortran"
+        LDOPTIMFLAGS="-O"
+        LDDEBUGFLAGS="-g"
+        OBJEXT=".o"
+        LDEXT=".mexmaci64"
+    />
+    <client>
+        <engine
+            LINKLIBS="$LINKLIBS -leng"
+            LDBUNDLE=""
+            LINKEXPORT=""
+            LDEXT=""
+        />
+    </client>
+    <locationFinder>
+        <GFORTRAN_DIR>
+            <and>
+                <cmdReturns name="which gfortran" />
+                <dirExists name="$$" />
+            </and>
+        </GFORTRAN_DIR>
+        <GFORTRAN_LIBDIR>
+            <and>
+                <cmdReturns name="which gfortran" />
+                <cmdReturns name="$$/gfortran -print-file-name=libgfortran.dylib" />
+                <dirExists name="$$" />
+            </and>
+        </GFORTRAN_LIBDIR>
+        <GFORTRAN_VERSION>
+            <cmdReturns name="gfortran -dumpversion"/>
+        </GFORTRAN_VERSION>
+    </locationFinder>
+</config>
